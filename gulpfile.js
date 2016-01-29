@@ -8,6 +8,7 @@ var templateCache = require('gulp-angular-templatecache');
 
 var scripts = [
     './app/vendors/angular/angular.js',
+	'./app/vendors/angular-bootstrap/ui-bootstrap-tpls.js',
     './app/vendors/angular-ui-router/release/angular-ui-router.js',
     './app/src/**/!(*.test).js'
 ];
@@ -24,8 +25,8 @@ gulp.task('index', function () {
 });
 
 gulp.task('pic', function () {
-    return gulp.src('./app/pic/*.*')
-        .pipe(gulp.dest('./build/Pic'))
+    return gulp.src('./app/*.jpg')
+        .pipe(gulp.dest('./build'))
 });
 
 gulp.task('css', function () {

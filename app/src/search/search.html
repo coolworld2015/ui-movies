@@ -1,0 +1,45 @@
+<center>
+	<div class="header">Collection</div>
+	<br><br>
+	<img ng-src="logo.jpg" width=150 height=150>
+	<hr>
+	<div class="header">
+		Search items
+	</div>
+	<br><br>
+	<form ng-submit="searchCtrl.searchSubmit()" novalidate name="searchCtrl.form">
+		<table class="table table-bordered">
+			<tr>
+				<td>
+					<select class="form-control input" required
+							ng-model="searchCtrl.selectedItem"
+							ng-options="option.name for option in searchCtrl.options
+							track by option.name"
+							ng-change="searchCtrl.updateChange(searchCtrl.selectedItem)">
+					</select>
+					<div ng-show="searchCtrl.categoryError" class="valid">Value required</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<input type="text" class="form-control input" required
+						   style="font-size:20px;
+						   color: white;
+						   background-color: black;
+						   border-style: none;"
+						   placeholder="Search items" name="name"
+						   ng-model="searchCtrl.name">
+
+					<div ng-if="searchCtrl.form.$submitted">
+						<div ng-show="searchCtrl.form.name.$error.required" class="valid">Value required</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+
+		<button type="submit" class="btn btn-primary button">Submit</button>&nbsp
+		<button type="button" class="btn btn-primary button" ng-click="searchCtrl.searchBack()">Back</button>
+	</form>
+	<br><br>
+</center>

@@ -1,0 +1,82 @@
+<center>
+	<form ng-submit="itemsEditCtrl.itemsSubmit()" novalidate name="itemsEditCtrl.form">
+		<div class="header">&nbsp;{{itemsEditCtrl.name}}</div>
+		<br><br>
+		<div 
+			style="border-color: white;
+				border-style: solid;
+				border-width: thick;
+				width: 210px;">
+			<img ng-src="{{itemsEditCtrl.pic}}" style="width:200px; height:210px;" ng-click="itemsEditCtrl.openPic()">
+		</div>
+		<br>
+		<table class="table table-bordered">
+			<tr>
+				<td>
+					<input type="text" class="form-control input" required
+						   style="font-size:20px;
+						   color: white;
+						   background-color: black;
+						   border-style: none;"
+						   placeholder="Name" name="name"
+						   ng-model="itemsEditCtrl.name">
+
+					<div ng-if="itemsEditCtrl.form.$submitted">
+						<div ng-show="itemsEditCtrl.form.name.$error.required" class="valid">Value required</div>
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<input readonly1 type="text" class="form-control input"
+						   style="font-size:20px;
+						   color: white;
+						   background-color: black;
+						   border-style: none;"
+						   placeholder="Category"
+						   ng-model="itemsEditCtrl.category">
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<input readonly1 type="text" class="form-control input"
+						   style="font-size:20px;
+						   color: white;
+						   background-color: black;
+						   border-style: none;"
+						   placeholder="Group"
+						   ng-model="itemsEditCtrl.group">
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<textarea rows=5 type="text" class="form-control input" required
+						   style="font-size:20px; 
+						   color: white; 
+						   background-color: black;
+						   border-style: none;"					
+						   placeholder="Description" name="description"
+						   ng-model="itemsEditCtrl.description">
+					</textarea>
+					<div ng-if="itemsEditCtrl.form.$submitted">
+						<div ng-show="itemsEditCtrl.form.description.$error.required" class="valid">Value required</div>
+					</div>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>
+					<input type="file" id="picFileInput" multiple onchange="angular.element(this).scope().convertPicToJSON()">
+				</td>
+			</tr>			
+		</table>
+
+		<button type="submit" class="btn btn-primary button">Submit</button>&nbsp
+		<button type="button" class="btn btn-primary button" ng-click="itemsEditCtrl.itemsDialog()">Delete</button><br><br>
+		<button type="button" class="btn btn-primary button" ng-click="itemsEditCtrl.itemsEditBack()">Back</button>
+	</form>
+	<br><br>
+</center>

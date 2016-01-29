@@ -1,0 +1,18 @@
+<center>
+	<div class="header">Collection</div>
+	<br><br>
+	<img ng-src="logo.jpg" width=150 height=150 ng-click="itemsDialogCtrl.goToBack()">
+	<hr>
+		<br>
+		<span style="font-size:24px; color: white;">
+			<strong>
+				Are you sure you want to delete {{itemsDialogCtrl.name}}?
+			</strong>					
+		</span>
+		<br><br>
+			<hr>
+		<br><br>
+	<button class="btn btn-primary button" ng-click="itemsDialogCtrl.itemsDelete()">Yes</button>&nbsp
+	<button class="btn btn-primary button" ng-click="itemsDialogCtrl.itemsEditBack()">No</button>
+	<br><br>	
+</center>

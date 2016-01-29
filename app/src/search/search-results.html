@@ -1,27 +1,49 @@
 <center>
-	<div class="header">Movies</div>
-	<br><br>
-	<img ng-src="logo.jpg" width=150 height=150 ng-click="searchResultsCtrl.goToBack()">
-	<hr>
-	<div class="header" ng-click="searchResultsCtrl.goToBack()">
-		{{searchResultsCtrl.title}}
-	</div>
-
-	<hr>
-	<div ng-if="searchResultsCtrl.pic">
-		<img ng-src={{searchResultsCtrl.pic}} style="width:200px; height:250px;">
-	</div>
-
-	<div style="font-size:20px; color: white; background-color: black; border-style: none;">
+	<div ng-if="!searchResultsCtrl.response">
+		<div class="header">Movies DB</div>
+		<br><br>
+		<img ng-src="logo.jpg" width=150 height=150>
 		<hr>
-		{{searchResultsCtrl.plot}}
-		<hr>
-		{{searchResultsCtrl.year}}
+			<div style="font-size:20px; color: white; background-color: black; border-style: none;">
+				{{searchResultsCtrl.error}}
+			</div>
 		<hr>
 	</div>
+	
+	<div ng-if="searchResultsCtrl.response">
+		<div class="header" ng-click="searchResultsCtrl.goToBack()">
+			{{searchResultsCtrl.title}}
+		</div>
+	
+		<div ng-if="searchResultsCtrl.pic">
+			<hr>
+			<img ng-src={{searchResultsCtrl.pic}} style="width:250px; height:350px;" ng-click="searchResultsCtrl.openPic()">
+		</div>
 
+		<div style="font-size:20px; color: white; background-color: black; border-style: none;">
+			<hr>
+			{{searchResultsCtrl.plot}}
+			<hr>
+			{{searchResultsCtrl.year}}
+			<hr>
+			{{searchResultsCtrl.country}}
+			<hr>		
+			{{searchResultsCtrl.genre}}
+			<hr>		
+			{{searchResultsCtrl.actors}}
+			<hr>		
+			{{searchResultsCtrl.runtime}} ({{searchResultsCtrl.type}})
+			<hr>		
+			Rating: {{searchResultsCtrl.imdbRating}}
+			<hr>		
+			ID: {{searchResultsCtrl.imdbID}}
+			<hr>
+		</div>
+	</div>
 	<hr style="margin-top: -20px;">
-
-	<button class="btn btn-primary button" ng-click="searchResultsCtrl.itemsBack()" scroll-here>Back</button>
+	
+	<button type="button" class="btn btn-primary button" ng-click="searchResultsCtrl.itemsSubmit()">Add to favorite</button>&nbsp
+	<button type="button" class="btn btn-primary button" ng-click="searchResultsCtrl.goCancel()">Cancel</button><br><br>
+	<button class="btn btn-primary button" ng-click="searchResultsCtrl.goBack()" scroll-here>Back</button>
 	<br><br>
 </center>

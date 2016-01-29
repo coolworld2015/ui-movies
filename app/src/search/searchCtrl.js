@@ -27,7 +27,7 @@
         function init() {
             vm.options = [
                 {name: 'Search by title'},
-                {name: 'Search by imdb id'}
+                {name: 'Search by IMDb ID'}
             ];
             vm.selectedItem = vm.options[0];
 

@@ -48,7 +48,7 @@
                                 //var webUrl = $rootScope.myConfig.webUrl + api;
 
                                 var webUrl = 'http://www.omdbapi.com/?t=';
-                                return $http.get(webUrl + name)
+                                return $http.get(webUrl + name + '&plot=full')
                                     .then(function (data) {
                                         return data.data;
                                     })

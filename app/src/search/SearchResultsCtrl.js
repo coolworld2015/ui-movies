@@ -8,20 +8,15 @@
     SearchResultsCtrl.$inject = ['$scope', '$rootScope', '$state', '$timeout', 'results', '$stateParams'];
 
     function SearchResultsCtrl($scope, $rootScope, $state, $timeout, results, $stateParams) {
-        $scope.$watch('numPerPage', currentPage);
-        $scope.$watch('currentPage', currentPage);
         var vm = this;
 
         angular.extend(vm, {
             init: init,
-            updateChange: updateChange,
-            currentPage: currentPage,
-            itemsEditForm: itemsEditForm,
-            itemsAdd: itemsAdd,
+			openPic: openPic,
+            itemsSubmit: itemsSubmit,
             goToBack: goToBack,
-            goToHead: goToHead,
-            itemsBack: itemsBack,
-			_sort: sort,
+            goBack: goBack,
+			goCancel: goCancel,
             _errorHandler: errorHandler
         });
 
@@ -32,83 +27,101 @@
         init();
 
         function init() {
-            vm.title = 'Results for "' + $stateParams.name + '"';
-
-            vm.items = [];
-
             vm.title = results.Title;
+            vm.error = results.Error;
+			
+            vm.response = results.Response;
+			if (vm.response == 'False') {
+                vm.response = false;
+            }
+			
             vm.plot = results.Plot;
             vm.year = results.Year;
             vm.pic = results.Poster;
+            vm.genre = results.Genre;
+            vm.country = results.Country;
+            vm.actors = results.Actors;
+            vm.runtime = results.Runtime;
+            vm.type = results.Type;
+            vm.imdbID = results.imdbID;
+            vm.imdbRating = results.imdbRating;
+			
             if (vm.pic == 'N/A') {
                 vm.pic = false;
             }
 
-            //vm.items = items.sort(sort);
-            vm.itemsFilter = [];
-            //vm.blank = $rootScope.noImage;
-
-            $scope.currentPage = 1;
-            $scope.numPerPage = $rootScope.numPerPageItems;
-            $scope.maxSize = 5;
-
             $rootScope.myError = false;
             $rootScope.loading = false;
         }
+		
+        function openPic() {
+			$rootScope.loading = true;
 
-        function updateChange() {
-            $rootScope.numPerPageItems = $scope.numPerPage;
+		    $timeout(function () {
+				window.open(vm.pic);
+			}, 100);
+			
+			$timeout(function () {
+				$rootScope.loading = false;
+			}, 3000);
         }
-
-        function currentPage() {
-            if (Object.prototype.toString.call(vm.items) == '[object Array]') {
-                var begin = (($scope.currentPage - 1) * $scope.numPerPage);
-                var end = parseInt(begin) + parseInt($scope.numPerPage);
-                $scope.filteredItems = vm.items.slice(begin, end);
-                $scope.totalItems = vm.items.length;
+		
+        function itemsSubmit() {
+            if (!vm.response) {
+                return goCancel();
             }
-        }
 
-        function itemsEditForm(item) {
             $rootScope.loading = true;
-            $timeout(function () {
-                $state.go('items-edit', {item: item, finds: $stateParams.finds});
-            }, 100);
-        }
+            $rootScope.myError = false;
 
-        function itemsAdd() {
-            $rootScope.loading = true;
-            $timeout(function () {
-                $state.go('items-add');
-            }, 100);
+            var item = {
+                id: vm.id,
+                name: vm.name,
+                pic: vm.pic,
+                category: vm.category,
+                group: vm.group,
+                description: vm.description
+            };
+            if ($rootScope.mode == 'ON-LINE (Heroku)') {
+                ItemsService.editItem(item)
+                    .then(function () {
+                        editItem(item);
+                        $rootScope.myError = false;
+                        $state.go('items');
+                    })
+                    .catch(errorHandler);
+            } else {
+				try {
+					ItemsLocalStorage.editItem(item);
+					$rootScope.loading = true;
+					$timeout(function () {
+						$state.go('items');
+					}, 100);
+				} catch(e) {
+					errorHandler();
+					alert(e);
+				}
+            }
         }
 
         function goToBack() {
             $scope.$broadcast('scrollHere');
         }
 
-        function goToHead() {
-            $scope.$broadcast('scrollThere');
-        }
-
-        function itemsBack() {
+        function goBack() {
             $rootScope.loading = true;
             $timeout(function () {
                 $state.go('search');
             }, 100);
         }
 		
-        function sort(a, b) {
-            var nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
-            if (nameA < nameB) {
-                return -1
-            }
-            if (nameA > nameB) {
-                return 1
-            }
-            return 0;
+		function goCancel() {
+            $rootScope.loading = true;
+            $timeout(function () {
+                $state.go('main');
+            }, 100);
         }
-		
+			
         function errorHandler() {
             $rootScope.loading = false;
             $rootScope.myError = true;

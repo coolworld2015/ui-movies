@@ -5,9 +5,9 @@
         .module('app')
         .controller('SearchResultsCtrl', SearchResultsCtrl);
 
-    SearchResultsCtrl.$inject = ['$scope', '$rootScope', '$state', '$timeout', 'items', '$stateParams'];
+    SearchResultsCtrl.$inject = ['$scope', '$rootScope', '$state', '$timeout', 'results', '$stateParams'];
 
-    function SearchResultsCtrl($scope, $rootScope, $state, $timeout, items, $stateParams) {
+    function SearchResultsCtrl($scope, $rootScope, $state, $timeout, results, $stateParams) {
         $scope.$watch('numPerPage', currentPage);
         $scope.$watch('currentPage', currentPage);
         var vm = this;
@@ -33,9 +33,20 @@
 
         function init() {
             vm.title = 'Results for "' + $stateParams.name + '"';
-            vm.items = items.sort(sort);
+
+            vm.items = [];
+
+            vm.title = results.Title;
+            vm.plot = results.Plot;
+            vm.year = results.Year;
+            vm.pic = results.Poster;
+            if (vm.pic == 'N/A') {
+                vm.pic = false;
+            }
+
+            //vm.items = items.sort(sort);
             vm.itemsFilter = [];
-            vm.blank = $rootScope.noImage;
+            //vm.blank = $rootScope.noImage;
 
             $scope.currentPage = 1;
             $scope.numPerPage = $rootScope.numPerPageItems;

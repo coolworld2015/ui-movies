@@ -38,15 +38,16 @@
                 controller: 'SearchResultsCtrl',
                 controllerAs: 'searchResultsCtrl',
                 resolve: {
-                    items: ['$http', '$stateParams', '$rootScope', 'ItemsLocalStorage',
+                    results: ['$http', '$stateParams', '$rootScope', 'ItemsLocalStorage',
                         function ($http, $stateParams, $rootScope, ItemsLocalStorage) {
                             var name = $stateParams.name;
                             if ($rootScope.mode == 'OFF-LINE (LocalStorage)') {
-                                var data = ItemsLocalStorage.findByName(name);
-                                return data;
+                                return ItemsLocalStorage.findByName(name);
                             } else {
                                 var api = 'api/items/findByName/';
-                                var webUrl = $rootScope.myConfig.webUrl + api;
+                                //var webUrl = $rootScope.myConfig.webUrl + api;
+
+                                var webUrl = 'http://www.omdbapi.com/?t=';
                                 return $http.get(webUrl + name)
                                     .then(function (data) {
                                         return data.data;
@@ -59,7 +60,7 @@
                             }
                         }]
                 }
-            })
+            });
 //-------------------------------------------------------------------------------------------------------
 
     }

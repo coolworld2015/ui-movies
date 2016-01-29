@@ -1,10 +1,10 @@
 <center>
-	<div class="header">Collection</div>
+	<div class="header">Movies</div>
 	<br><br>
 	<img ng-src="logo.jpg" width=150 height=150>
 	<hr>
 	<div class="header">
-		Search items
+		Search movies
 	</div>
 	<br><br>
 	<form ng-submit="searchCtrl.searchSubmit()" novalidate name="searchCtrl.form">
@@ -28,7 +28,7 @@
 						   color: white;
 						   background-color: black;
 						   border-style: none;"
-						   placeholder="Search items" name="name"
+						   placeholder="Search movies" name="name"
 						   ng-model="searchCtrl.name">
 
 					<div ng-if="searchCtrl.form.$submitted">

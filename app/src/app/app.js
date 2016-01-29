@@ -52,7 +52,7 @@
         };
 
         //$rootScope.mode = 'OFF-LINE (LocalStorage)'; //TODO !!! ONLY for Google Market
-        //$rootScope.mode = 'ON-LINE (Heroku)'; //TODO !!! ONLY for Web Site
+        $rootScope.mode = 'ON-LINE (Heroku)'; //TODO !!! ONLY for Web Site
     }
 
 })();

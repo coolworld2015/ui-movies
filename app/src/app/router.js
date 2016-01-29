@@ -60,7 +60,21 @@
                             }
                         }]
                 }
-            });
+            })
+//-------------------------------------------------------------------------------------------------------
+            .state('items', {
+                url: '/items',
+                templateUrl: 'items/items.html',
+                controller: 'ItemsCtrl',
+                controllerAs: 'itemsCtrl',
+                resolve: {
+                    items: ['$http', '$stateParams', '$rootScope', 'ItemsLocalStorage',
+                        function ($http, $stateParams, $rootScope, ItemsLocalStorage) {
+                            var name = $stateParams.name;
+                                return ItemsLocalStorage.getItems();
+                         }]
+                }
+            })
 //-------------------------------------------------------------------------------------------------------
 
     }

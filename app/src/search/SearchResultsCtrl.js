@@ -5,14 +5,15 @@
         .module('app')
         .controller('SearchResultsCtrl', SearchResultsCtrl);
 
-    SearchResultsCtrl.$inject = ['$scope', '$rootScope', '$state', '$timeout', 'results', '$stateParams'];
+    SearchResultsCtrl.$inject = ['$scope', '$rootScope', '$state', '$timeout', 'results', 'ItemsLocalStorage'];
 
-    function SearchResultsCtrl($scope, $rootScope, $state, $timeout, results, $stateParams) {
+    function SearchResultsCtrl($scope, $rootScope, $state, $timeout, results, ItemsLocalStorage) {
         var vm = this;
 
         angular.extend(vm, {
             init: init,
 			openPic: openPic,
+			convertFileToBase64viaFileReader: convertFileToBase64viaFileReader,
             itemsSubmit: itemsSubmit,
             goToBack: goToBack,
             goBack: goBack,
@@ -66,33 +67,41 @@
 			}, 3000);
         }
 		
+		function convertFileToBase64viaFileReader(url, callback){
+			var xhr = new XMLHttpRequest();
+			xhr.responseType = 'blob';
+			xhr.onload = function() {
+				var reader  = new FileReader();
+				reader.onloadend = function () {
+					callback(reader.result);
+				}
+				reader.readAsDataURL(xhr.response);
+			};
+			xhr.open('GET', url);
+			xhr.send();
+		}
+
         function itemsSubmit() {
             if (!vm.response) {
                 return goCancel();
             }
-
-            $rootScope.loading = true;
+			
+			$rootScope.loading = true;
             $rootScope.myError = false;
-
-            var item = {
-                id: vm.id,
-                name: vm.name,
-                pic: vm.pic,
-                category: vm.category,
-                group: vm.group,
-                description: vm.description
-            };
-            if ($rootScope.mode == 'ON-LINE (Heroku)') {
-                ItemsService.editItem(item)
-                    .then(function () {
-                        editItem(item);
-                        $rootScope.myError = false;
-                        $state.go('items');
-                    })
-                    .catch(errorHandler);
-            } else {
+			
+			convertFileToBase64viaFileReader(vm.pic, function(base64Img){
+				vm.pic = base64Img;
+				
+				var id = (Math.random() * 1000000).toFixed();
+				var item = {
+					id: id,
+					name: vm.title,
+					pic: vm.pic,
+				};
+ 
 				try {
-					ItemsLocalStorage.editItem(item);
+					ItemsLocalStorage.getItems();
+					ItemsLocalStorage.addItem(item);
 					$rootScope.loading = true;
 					$timeout(function () {
 						$state.go('items');
@@ -101,7 +110,7 @@
 					errorHandler();
 					alert(e);
 				}
-            }
+			});
         }
 
         function goToBack() {

@@ -33,31 +33,29 @@
             })
 //-------------------------------------------------------------------------------------------------------
             .state('search-results', {
-                url: '/search-results?name?search?finds',
+                url: '/search-results?name?search',
                 templateUrl: 'search/search-results.html',
                 controller: 'SearchResultsCtrl',
                 controllerAs: 'searchResultsCtrl',
                 resolve: {
-                    results: ['$http', '$stateParams', '$rootScope', 'ItemsLocalStorage',
-                        function ($http, $stateParams, $rootScope, ItemsLocalStorage) {
+                    results: ['$http', '$stateParams', '$rootScope', 
+                        function ($http, $stateParams, $rootScope) {
                             var name = $stateParams.name;
-                            if ($rootScope.mode == 'OFF-LINE (LocalStorage)') {
-                                return ItemsLocalStorage.findByName(name);
+                            var search = $stateParams.search;
+                            if (search == 'Search by title') {
+								var webUrl = 'http://www.omdbapi.com/?t=';
                             } else {
-                                var api = 'api/items/findByName/';
-                                //var webUrl = $rootScope.myConfig.webUrl + api;
-
-                                var webUrl = 'http://www.omdbapi.com/?t=';
-                                return $http.get(webUrl + name + '&plot=full')
-                                    .then(function (data) {
-                                        return data.data;
-                                    })
-                                    .catch(function () {
-                                        $rootScope.loading = false;
-                                        $rootScope.error = true;
-                                        return [];
-                                    });
-                            }
+                                var webUrl = 'http://www.omdbapi.com/?i=';
+							}
+							return $http.get(webUrl + name + '&plot=full')
+								.then(function (data) {
+									return data.data;
+								})
+								.catch(function () {
+									$rootScope.loading = false;
+									$rootScope.error = true;
+									return [];
+								});
                         }]
                 }
             })
@@ -90,6 +88,19 @@
                 controller: 'ItemsDialogCtrl',
                 controllerAs: 'itemsDialogCtrl'
             })
+//-------------------------------------------------------------------------------------------------------
+            .state('series', {
+                url: '/series',
+                templateUrl: 'items/items.html',
+                controller: 'ItemsCtrl',
+                controllerAs: 'itemsCtrl',
+                resolve: {
+                    items: ['ItemsLocalStorage',
+                        function (ItemsLocalStorage) {
+                                return ItemsLocalStorage.getItems();
+                         }]
+                }
+            })			
 //-------------------------------------------------------------------------------------------------------
     }
 })();

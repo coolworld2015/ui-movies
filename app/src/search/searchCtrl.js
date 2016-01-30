@@ -29,8 +29,8 @@
                 {name: 'Search by title'},
                 {name: 'Search by IMDB ID'}
             ];
-            vm.selectedItem = vm.options[0];
-
+            vm.selectedItem = vm.options[0]
+			vm.search = vm.selectedItem.name;
             $rootScope.loading = false;
         }
 		
@@ -45,7 +45,7 @@
             }
             $rootScope.loading = true;
             $rootScope.error = false;
-            $state.go('search-results', {name: vm.name, search: vm.search, finds: true});
+            $state.go('search-results', {name: vm.name, search: vm.search});
         }
 
         function searchBack() {

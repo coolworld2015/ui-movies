@@ -12,7 +12,6 @@
 
         angular.extend(vm, {
             itemsDelete: itemsDelete,
-            _deleteItem: deleteItem,
             itemsEditBack: itemsEditBack,
             _errorHandler: errorHandler
         });
@@ -28,40 +27,20 @@
             $rootScope.loading = true;
             $rootScope.myError = false;
 
-            if ($rootScope.mode == 'ON-LINE (Heroku)') {
-                ItemsService.deleteItem(vm.id)
-                    .then(function () {
-                        deleteItem(vm.id);
-                        $rootScope.myError = false;
-                        $state.go('items');
-                    })
-                    .catch(errorHandler);
-            } else {
-                ItemsLocalStorage.deleteItem(vm.id);
-                $rootScope.loading = true;
-                $timeout(function () {
-                    $state.go('items');
-                }, 100);
-            }
+			ItemsLocalStorage.deleteItem(vm.id);
+			$rootScope.loading = true;
+			$timeout(function () {
+				$state.go('items');
+			}, 100);
         }
-
-        function deleteItem(id) {
-            var items = ItemsService.items;
-            for (var i = 0; i < items.length; i++) {
-                if (items[i].id == id) {
-                    items.splice(i, 1);
-                    break;
-                }
-            }
-        }
-
+		
         function itemsEditBack() {
             $rootScope.loading = true;
             $timeout(function () {
                 $state.go('items');
             }, 100);
         }
-
+		
         function errorHandler() {
             $rootScope.loading = false;
             $rootScope.myError = true;

@@ -31,7 +31,7 @@
         init();
 
         function init() {
-            vm.title = 'Items';
+            vm.title = 'Movies';
             vm.items = items;
             vm.itemsFilter = [];
 			vm.blank = $rootScope.noImage;

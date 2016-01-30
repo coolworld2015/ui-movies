@@ -27,13 +27,13 @@
         function init() {
             vm.options = [
                 {name: 'Search by title'},
-                {name: 'Search by IMDb ID'}
+                {name: 'Search by IMDB ID'}
             ];
             vm.selectedItem = vm.options[0];
 
             $rootScope.loading = false;
         }
-
+		
         function updateChange(item) {
             vm.error = false;
             vm.search = item.name;

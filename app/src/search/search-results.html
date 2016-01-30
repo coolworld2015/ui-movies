@@ -16,8 +16,13 @@
 		</div>
 	
 		<div ng-if="searchResultsCtrl.pic">
-			<hr>
-			<img ng-src={{searchResultsCtrl.pic}} style="width:250px; height:350px;" ng-click="searchResultsCtrl.openPic()">
+			<br>
+				<div style="border-color: white;
+					border-style: solid;
+					border-width: thick;
+					width: 260px;">
+					<img ng-src={{searchResultsCtrl.pic}} style="width:250px; height:350px;" ng-click="searchResultsCtrl.openPic()">
+				</div>
 		</div>
 
 		<div style="font-size:20px; color: white; background-color: black; border-style: none;">

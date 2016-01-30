@@ -97,6 +97,15 @@
 					id: id,
 					name: vm.title,
 					pic: vm.pic,
+					plot: vm.plot,
+ 					year: vm.year, 
+ 					genre: vm.genre,
+					country: vm.country,
+					actors: vm.actors,
+					runtime: vm.runtime,
+					type: vm.type,
+					imdbID: vm.imdbID,
+					imdbRating:vm.imdbRating
 				};
  
 				try {

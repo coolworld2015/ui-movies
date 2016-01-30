@@ -8,17 +8,14 @@
     ItemsEditCtrl.$inject = ['$scope', '$state', '$rootScope', '$timeout', 'ItemsService', 'ItemsLocalStorage', '$stateParams'];
 
     function ItemsEditCtrl($scope, $state, $rootScope, $timeout, ItemsService, ItemsLocalStorage, $stateParams) {
-        $scope.convertPicToJSON = convertPicToJSON;
         var vm = this;
 
         angular.extend(vm, {
             init: init,
-            convertPicToJSON: convertPicToJSON,
-            openPic: openPic,
-            itemsSubmit: itemsSubmit,
-            _editItem: editItem,
+			openPic: openPic,			
             itemsDialog: itemsDialog,
             itemsEditBack: itemsEditBack,
+			goCancel: goCancel,
             _errorHandler: errorHandler
         });
 
@@ -37,20 +34,7 @@
             $rootScope.myError = false;
             $rootScope.loading = false;
         }
-
-        function convertPicToJSON() {
-            var fileInput = document.getElementById("picFileInput");
-            var files = fileInput.files;
-            var file = files[0];
-            var reader = new FileReader();
-            reader.onload = function () {
-                $scope.$apply(function () {
-                    vm.pic = reader.result;
-                });
-            };
-            reader.readAsDataURL(file);
-        }
-
+		
         function openPic() {
 			$rootScope.loading = true;
 
@@ -62,55 +46,7 @@
 				$rootScope.loading = false;
 			}, 3000);
         }
-
-        function itemsSubmit() {
-            if (vm.form.$invalid) {
-                return;
-            }
-
-            $rootScope.loading = true;
-            $rootScope.myError = false;
-
-            var item = {
-                id: vm.id,
-                name: vm.name,
-                pic: vm.pic,
-                category: vm.category,
-                group: vm.group,
-                description: vm.description
-            };
-            if ($rootScope.mode == 'ON-LINE (Heroku)') {
-                ItemsService.editItem(item)
-                    .then(function () {
-                        editItem(item);
-                        $rootScope.myError = false;
-                        $state.go('items');
-                    })
-                    .catch(errorHandler);
-            } else {
-				try {
-					ItemsLocalStorage.editItem(item);
-					$rootScope.loading = true;
-					$timeout(function () {
-						$state.go('items');
-					}, 100);
-				} catch(e) {
-					errorHandler();
-					alert(e);
-				}
-            }
-        }
-
-        function editItem(item) {
-            var items = ItemsService.items;
-            for (var i = 0; i < items.length; i++) {
-                if (items[i].id == item.id) {
-                    items.splice(i, 1, item);
-                    break;
-                }
-            }
-        }
-
+		
         function itemsDialog() {
             var obj = {
                 id: vm.id,
@@ -133,7 +69,14 @@
                 }
             }, 100);
         }
-
+		
+		function goCancel() {
+            $rootScope.loading = true;
+            $timeout(function () {
+                $state.go('main');
+            }, 100);
+        }
+		
         function errorHandler() {
             $rootScope.loading = false;
             $rootScope.myError = true;

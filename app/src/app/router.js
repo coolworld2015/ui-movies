@@ -68,14 +68,28 @@
                 controller: 'ItemsCtrl',
                 controllerAs: 'itemsCtrl',
                 resolve: {
-                    items: ['$http', '$stateParams', '$rootScope', 'ItemsLocalStorage',
-                        function ($http, $stateParams, $rootScope, ItemsLocalStorage) {
-                            var name = $stateParams.name;
+                    items: ['ItemsLocalStorage',
+                        function (ItemsLocalStorage) {
                                 return ItemsLocalStorage.getItems();
                          }]
                 }
             })
+//-------------------------------------------------------------------------------------------------------				
+           .state('items-edit', {
+                url: '/items-edit?finds',
+                params: {item: {}},
+                templateUrl: 'items/items-edit.html',
+                controller: 'ItemsEditCtrl',
+                controllerAs: 'itemsEditCtrl'
+            })
+//-------------------------------------------------------------------------------------------------------	
+            .state('items-dialog', {
+                url: '/items-dialog',
+                params: {item: {}},
+                templateUrl: 'items/items-dialog.html',
+                controller: 'ItemsDialogCtrl',
+                controllerAs: 'itemsDialogCtrl'
+            })
 //-------------------------------------------------------------------------------------------------------
-
     }
 })();

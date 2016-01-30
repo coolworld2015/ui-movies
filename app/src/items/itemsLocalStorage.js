@@ -23,7 +23,7 @@
 
         function getItems() {
             if (ItemsLocalStorage.items === undefined) {
-                var items = localStorage.getItem('ui-collection.items');
+                var items = localStorage.getItem('ui-movies.items');
                 items = JSON.parse(items);
                 ItemsLocalStorage.items = items;
             }
@@ -63,11 +63,11 @@
         }
 
         function setItems() {
-            localStorage.setItem('ui-collection.items', JSON.stringify(ItemsLocalStorage.items));
+            localStorage.setItem('ui-movies.items', JSON.stringify(ItemsLocalStorage.items));
         }
 
         function uploadItems(items) {
-            localStorage.setItem('ui-collection.items', JSON.stringify(items));
+            localStorage.setItem('ui-movies.items', JSON.stringify(items));
             ItemsLocalStorage.items = undefined;
         }
 

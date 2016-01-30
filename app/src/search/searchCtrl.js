@@ -32,6 +32,7 @@
             vm.selectedItem = vm.options[0]
 			vm.search = vm.selectedItem.name;
             $rootScope.loading = false;
+			$rootScope.myError = false;
         }
 		
         function updateChange(item) {

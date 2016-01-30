@@ -89,9 +89,14 @@
 			$rootScope.loading = true;
             $rootScope.myError = false;
 			
+			if (!vm.pic) {
+				$rootScope.loading = false;
+				$rootScope.myError = true;
+				return;
+			}
+			
 			convertFileToBase64viaFileReader(vm.pic, function(base64Img){
 				vm.pic = base64Img;
-				
 				var id = (Math.random() * 1000000).toFixed();
 				var item = {
 					id: id,

@@ -5,15 +5,16 @@
         .module('app')
         .controller('ItemsCtrl', ItemsCtrl);
 
-    ItemsCtrl.$inject = ['$scope', '$rootScope', '$state', '$timeout', 'items'];
+    ItemsCtrl.$inject = ['$scope', '$rootScope', '$state', '$timeout', 'items', 'status'];
 
-    function ItemsCtrl($scope, $rootScope, $state, $timeout, items) {
+    function ItemsCtrl($scope, $rootScope, $state, $timeout, items, status) {
         $scope.$watch('numPerPage', currentPage);
         $scope.$watch('currentPage', currentPage);
         var vm = this;
 
         angular.extend(vm, {
             init: init,
+			_sortData: sortData,
 			updateChange: updateChange,
             currentPage: currentPage,
             itemsEditForm: itemsEditForm,
@@ -31,8 +32,15 @@
         init();
 
         function init() {
-            vm.title = 'Movies';
-            vm.items = items;
+			sortData();
+			if (status == 'movie') {
+				vm.title = 'Movies';	
+				vm.items = vm.movies;				
+			} else {
+				vm.title = 'Series';
+				vm.items = vm.series;
+			}
+            
             vm.itemsFilter = [];
 			vm.blank = $rootScope.noImage;
 			
@@ -43,7 +51,19 @@
             $rootScope.myError = false;
             $rootScope.loading = false;
         }
-
+		
+		function sortData() {
+			vm.movies = [];
+			vm.series = [];
+			for (var i = 0; i < items.length; i++) {
+				if (items[i].type == 'movie') {
+					vm.movies.push(items[i]);	
+				} else {
+					vm.series.push(items[i]);	
+				}
+			}
+		}
+		
         function updateChange() {
             $rootScope.numPerPageItems = $scope.numPerPage;
         }

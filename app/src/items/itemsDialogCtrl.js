@@ -30,14 +30,22 @@
 			ItemsLocalStorage.deleteItem(vm.id);
 			$rootScope.loading = true;
 			$timeout(function () {
-				$state.go('items');
+				if (vm.type == 'movie') {
+					$state.go('items');
+				} else {
+					$state.go('series');
+				}
 			}, 100);
         }
 		
         function itemsEditBack() {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('items');
+				if (vm.type == 'movie') {
+					$state.go('items');
+				} else {
+					$state.go('series');
+				}
             }, 100);
         }
 		

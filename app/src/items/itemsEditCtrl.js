@@ -50,7 +50,8 @@
         function itemsDialog() {
             var obj = {
                 id: vm.id,
-                name: vm.name
+                name: vm.name,
+				type: vm.type
             };
             $rootScope.loading = true;
             $timeout(function () {

@@ -69,7 +69,10 @@
                     items: ['ItemsLocalStorage',
                         function (ItemsLocalStorage) {
                                 return ItemsLocalStorage.getItems();
-                         }]
+                         }],
+					status: function () {
+                                return 'movie';
+                         }
                 }
             })
 //-------------------------------------------------------------------------------------------------------				
@@ -98,7 +101,10 @@
                     items: ['ItemsLocalStorage',
                         function (ItemsLocalStorage) {
                                 return ItemsLocalStorage.getItems();
-                         }]
+                         }],
+					status: function () {
+                                return 'series';
+                         }						 
                 }
             })			
 //-------------------------------------------------------------------------------------------------------

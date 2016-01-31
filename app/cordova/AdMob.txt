@@ -1,6 +1,6 @@
 <html ng-app="app">
 <head>
-    <title>UI-Horoscope</title>
+    <title>UI-Movies</title>
     <META name=viewport content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="shortcut icon" href="logo.jpg"/>
     <link rel="stylesheet" href="styles.css"/>
@@ -13,7 +13,8 @@
     if( /(android)/i.test(navigator.userAgent) ) {
         admobid = {
             //banner: 'ca-app-pub-4884500146569199/4949665866' // UI-Horoscope
-            banner: 'ca-app-pub-4884500146569199/3277785061' // UI-Collection
+            //banner: 'ca-app-pub-4884500146569199/3277785061' // UI-Collection
+            banner: 'ca-app-pub-4884500146569199/5596319463' // UI-Movies
         };
     }
 

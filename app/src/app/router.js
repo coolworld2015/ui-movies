@@ -38,24 +38,25 @@
                 controller: 'SearchResultsCtrl',
                 controllerAs: 'searchResultsCtrl',
                 resolve: {
-                    results: ['$http', '$stateParams', '$rootScope', 
-                        function ($http, $stateParams, $rootScope) {
+                    results: ['$http', '$q', '$stateParams', '$rootScope',
+                        function ($http, $q, $stateParams, $rootScope) {
                             var name = $stateParams.name;
                             var search = $stateParams.search;
+                            var webUrl;
                             if (search == 'Search by title') {
-								var webUrl = 'http://www.omdbapi.com/?t=';
+                                webUrl = 'http://www.omdbapi.com1/?t=';
                             } else {
-                                var webUrl = 'http://www.omdbapi.com/?i=';
-							}
-							return $http.get(webUrl + name + '&plot=full')
-								.then(function (data) {
-									return data.data;
-								})
-								.catch(function () {
-									$rootScope.loading = false;
-									$rootScope.error = true;
-									return [];
-								});
+                                webUrl = 'http://www.omdbapi.com/?i=';
+                            }
+                            return $http.get(webUrl + name + '&plot=full')
+                                .then(function (data) {
+                                    return data.data;
+                                })
+                                .catch(function (reject) {
+                                    $rootScope.loading = false;
+                                    $rootScope.myError = true;
+                                    return $q.reject(reject);
+                                });
                         }]
                 }
             })
@@ -68,15 +69,15 @@
                 resolve: {
                     items: ['ItemsLocalStorage',
                         function (ItemsLocalStorage) {
-                                return ItemsLocalStorage.getItems();
-                         }],
-					status: function () {
-                                return 'movie';
-                         }
+                            return ItemsLocalStorage.getItems();
+                        }],
+                    status: function () {
+                        return 'movie';
+                    }
                 }
             })
 //-------------------------------------------------------------------------------------------------------				
-           .state('items-edit', {
+            .state('items-edit', {
                 url: '/items-edit?finds',
                 params: {item: {}},
                 templateUrl: 'items/items-edit.html',
@@ -100,13 +101,13 @@
                 resolve: {
                     items: ['ItemsLocalStorage',
                         function (ItemsLocalStorage) {
-                                return ItemsLocalStorage.getItems();
-                         }],
-					status: function () {
-                                return 'series';
-                         }						 
+                            return ItemsLocalStorage.getItems();
+                        }],
+                    status: function () {
+                        return 'series';
+                    }
                 }
-            })			
+            });
 //-------------------------------------------------------------------------------------------------------
     }
 })();

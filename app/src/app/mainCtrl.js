@@ -5,9 +5,9 @@
         .module('app')
         .controller('MainCtrl', MainCtrl);
 
-    MainCtrl.$inject = ['$rootScope', '$state', '$timeout'];
+    MainCtrl.$inject = ['$rootScope', '$timeout'];
 
-    function MainCtrl($rootScope, $state, $timeout) {
+    function MainCtrl($rootScope, $timeout) {
         var vm = this;
 
         angular.extend(vm, {

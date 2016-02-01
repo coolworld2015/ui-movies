@@ -29,7 +29,7 @@
                 {name: 'Search by title'},
                 {name: 'Search by IMDB ID'}
             ];
-            vm.selectedItem = vm.options[0]
+            vm.selectedItem = vm.options[0];
 			vm.search = vm.selectedItem.name;
             $rootScope.loading = false;
 			$rootScope.myError = false;

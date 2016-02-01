@@ -28,6 +28,10 @@
         init();
 
         function init() {
+            if ($stateParams.item.name == undefined) {
+                $state.go('items');
+            }
+
 			if ($stateParams.item.pic == 'blank') {
 				vm.pic = $rootScope.noImage;
 			}

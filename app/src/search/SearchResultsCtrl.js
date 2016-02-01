@@ -13,6 +13,7 @@
         angular.extend(vm, {
             init: init,
 			openPic: openPic,
+            convertToDataURLviaCanvas: convertToDataURLviaCanvas,
 			convertFileToBase64viaFileReader: convertFileToBase64viaFileReader,
             itemsSubmit: itemsSubmit,
             goToBack: goToBack,
@@ -66,7 +67,24 @@
 				$rootScope.loading = false;
 			}, 3000);
         }
-		
+
+        function convertToDataURLviaCanvas(url, callback, outputFormat){
+            var img = new Image();
+            img.crossOrigin = 'Anonymous';
+            img.onload = function(){
+                var canvas = document.createElement('CANVAS');
+                var ctx = canvas.getContext('2d');
+                var dataURL;
+                canvas.height = this.height;
+                canvas.width = this.width;
+                ctx.drawImage(this, 0, 0);
+                dataURL = canvas.toDataURL(outputFormat);
+                callback(dataURL);
+                canvas = null;
+            };
+            img.src = url;
+        }
+
 		function convertFileToBase64viaFileReader(url, callback){
 			var xhr = new XMLHttpRequest();
 			xhr.responseType = 'blob';
@@ -94,8 +112,8 @@
 				$rootScope.myError = true;
 				return;
 			}
-			
-			convertFileToBase64viaFileReader(vm.pic, function(base64Img){
+
+            convertToDataURLviaCanvas(vm.pic, function(base64Img){
 				vm.pic = base64Img;
 				var id = (Math.random() * 1000000).toFixed();
 				var item = {

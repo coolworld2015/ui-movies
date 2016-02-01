@@ -44,7 +44,7 @@
                             var search = $stateParams.search;
                             var webUrl;
                             if (search == 'Search by title') {
-                                webUrl = 'http://www.omdbapi.com1/?t=';
+                                webUrl = 'http://www.omdbapi.com/?t=';
                             } else {
                                 webUrl = 'http://www.omdbapi.com/?i=';
                             }

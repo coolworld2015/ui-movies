@@ -32,6 +32,9 @@
         init();
 
         function init() {
+            vm.wifi = wifi;
+            vm.blank = $rootScope.noWIFI;
+
 			sortData();
 			if (status == 'movie') {
 				vm.title = 'Movies';	
@@ -42,8 +45,6 @@
 			}
             
             vm.itemsFilter = [];
-			vm.blank = $rootScope.noImage;
-			
             $scope.currentPage = 1;
             $scope.numPerPage = $rootScope.numPerPageItems;
             $scope.maxSize = 5;

@@ -70,7 +70,11 @@
                 if ($stateParams.finds) {
                     $state.go('search');
                 } else {
-                    $state.go('items');
+                    if ($stateParams.item.type == 'movies') {
+                        $state.go('items');
+                    } else {
+                        $state.go('series');
+                    }
                 }
             }, 100);
         }

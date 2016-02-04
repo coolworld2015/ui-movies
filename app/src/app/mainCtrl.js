@@ -5,9 +5,9 @@
         .module('app')
         .controller('MainCtrl', MainCtrl);
 
-    MainCtrl.$inject = ['$rootScope', '$timeout'];
+    MainCtrl.$inject = ['$state', '$rootScope', '$timeout'];
 
-    function MainCtrl($rootScope, $timeout) {
+    function MainCtrl($state, $rootScope, $timeout) {
         var vm = this;
 
         angular.extend(vm, {
@@ -26,9 +26,10 @@
             $rootScope.loading = false;
         }
 
-        function go() {
+        function go(state) {
             $rootScope.loading = true;
             $timeout(function () {
+                $state.go(state);
             }, 100);
         }
     }

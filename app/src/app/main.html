@@ -4,11 +4,11 @@
         <br><br>
         <img ng-src="logo.jpg" width=150 height=150>
         <br><br>
-		<div  ng-click="mainCtrl.go()">
+		<div>
 			<hr>
-				<a ui-sref="search" class="list-group-item" style="font-size:24px; font-weight: bold; color: white; background-color: black; border: black;">Search movies</a>
-				<a ui-sref="items" class="list-group-item" style="font-size:24px; font-weight: bold; color: white; background-color: black; border: black;">Favorite movies</a>
-				<a ui-sref="series" class="list-group-item" style="font-size:24px; font-weight: bold; color: white; background-color: black; border: black;">Favorite series</a>
+				<a ng-click="mainCtrl.go('search')" href='' class="list-group-item" style="font-size:24px; font-weight: bold; color: white; background-color: black; border: black;">Search movies</a>
+				<a ng-click="mainCtrl.go('items')" href='' class="list-group-item" style="font-size:24px; font-weight: bold; color: white; background-color: black; border: black;">Favorite movies</a>
+				<a ng-click="mainCtrl.go('series')" href='' class="list-group-item" style="font-size:24px; font-weight: bold; color: white; background-color: black; border: black;">Favorite series</a>
 			<hr>
 		</div>
     </div>

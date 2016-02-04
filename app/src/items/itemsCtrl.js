@@ -5,9 +5,9 @@
         .module('app')
         .controller('ItemsCtrl', ItemsCtrl);
 
-    ItemsCtrl.$inject = ['$scope', '$rootScope', '$state', '$timeout', 'items', 'status'];
+    ItemsCtrl.$inject = ['$scope', '$rootScope', '$state', '$timeout', 'items', 'status', 'wifi'];
 
-    function ItemsCtrl($scope, $rootScope, $state, $timeout, items, status) {
+    function ItemsCtrl($scope, $rootScope, $state, $timeout, items, status, wifi) {
         $scope.$watch('numPerPage', currentPage);
         $scope.$watch('currentPage', currentPage);
         var vm = this;

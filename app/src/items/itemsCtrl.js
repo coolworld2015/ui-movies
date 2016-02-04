@@ -18,7 +18,6 @@
 			updateChange: updateChange,
             currentPage: currentPage,
             itemsEditForm: itemsEditForm,
-            itemsAdd: itemsAdd,
             goToBack: goToBack,
             goToHead: goToHead,
             itemsBack: itemsBack,
@@ -85,13 +84,6 @@
             }
             $timeout(function () {
                 $state.go('items-edit', {item: item});
-            }, 100);
-        }
-
-        function itemsAdd() {
-            $rootScope.loading = true;
-            $timeout(function () {
-                $state.go('items-add');
             }, 100);
         }
 

@@ -29,7 +29,7 @@
 
         function init() {
             if ($stateParams.item.name == undefined) {
-                $state.go('items');
+                $state.go('main');
             }
 
             if ($stateParams.item.pic == 'blank') {

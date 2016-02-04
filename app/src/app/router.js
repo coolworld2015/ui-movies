@@ -76,7 +76,7 @@
                     },
                     wifi: ['$http', '$q', '$stateParams', '$rootScope',
                         function ($http, $q, $stateParams, $rootScope) {
-                            var webUrl = 'http://ia.media-imdb1.com/images/' +
+                            var webUrl = 'http://ia.media-imdb.com/images/' +
                                 'M/MV5BMTIyOTM5MzkzMF5BMl5BanBnXkFtZTYwOTk5OTc5._V1_SX300.jpg';
                             return $http.get(webUrl)
                                 .then(function (data) {
@@ -119,7 +119,21 @@
                         }],
                     status: function () {
                         return 'series';
-                    }
+                    },
+                    wifi: ['$http', '$q', '$stateParams', '$rootScope',
+                        function ($http, $q, $stateParams, $rootScope) {
+                            var webUrl = 'http://ia.media-imdb.com/images/' +
+                                'M/MV5BMTIyOTM5MzkzMF5BMl5BanBnXkFtZTYwOTk5OTc5._V1_SX300.jpg';
+                            return $http.get(webUrl)
+                                .then(function (data) {
+                                    return true;
+                                })
+                                .catch(function (reject) {
+                                    $rootScope.loading = false;
+                                    $rootScope.myError = true;
+                                    return false;
+                                });
+                        }]
                 }
             });
 //-------------------------------------------------------------------------------------------------------

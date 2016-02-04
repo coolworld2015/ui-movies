@@ -80,6 +80,9 @@
 
         function itemsEditForm(item) {
             $rootScope.loading = true;
+            if (vm.wifi == false) {
+                item.pic = vm.blank;
+            }
             $timeout(function () {
                 $state.go('items-edit', {item: item});
             }, 100);

@@ -5,17 +5,17 @@
         .module('app')
         .controller('ItemsEditCtrl', ItemsEditCtrl);
 
-    ItemsEditCtrl.$inject = ['$scope', '$state', '$rootScope', '$timeout', 'ItemsService', 'ItemsLocalStorage', '$stateParams'];
+    ItemsEditCtrl.$inject = ['$state', '$rootScope', '$timeout', '$stateParams'];
 
-    function ItemsEditCtrl($scope, $state, $rootScope, $timeout, ItemsService, ItemsLocalStorage, $stateParams) {
+    function ItemsEditCtrl($state, $rootScope, $timeout, $stateParams) {
         var vm = this;
 
         angular.extend(vm, {
             init: init,
-			openPic: openPic,			
+            openPic: openPic,
             itemsDialog: itemsDialog,
             itemsEditBack: itemsEditBack,
-			goCancel: goCancel,
+            goCancel: goCancel,
             _errorHandler: errorHandler
         });
 
@@ -32,30 +32,30 @@
                 $state.go('items');
             }
 
-			if ($stateParams.item.pic == 'blank') {
-				vm.pic = $rootScope.noImage;
-			}
+            if ($stateParams.item.pic == 'blank') {
+                vm.pic = $rootScope.noImage;
+            }
             $rootScope.myError = false;
             $rootScope.loading = false;
         }
-		
-        function openPic() {
-			$rootScope.loading = true;
 
-		    $timeout(function () {
-				window.open(vm.pic);
-			}, 100);
-			
-			$timeout(function () {
-				$rootScope.loading = false;
-			}, 3000);
+        function openPic() {
+            $rootScope.loading = true;
+
+            $timeout(function () {
+                window.open(vm.pic);
+            }, 100);
+
+            $timeout(function () {
+                $rootScope.loading = false;
+            }, 3000);
         }
-		
+
         function itemsDialog() {
             var obj = {
                 id: vm.id,
                 name: vm.name,
-				type: vm.type
+                type: vm.type
             };
             $rootScope.loading = true;
             $timeout(function () {
@@ -64,7 +64,7 @@
         }
 
         function itemsEditBack() {
-			$rootScope.myError = false;
+            $rootScope.myError = false;
             $rootScope.loading = true;
             $timeout(function () {
                 if ($stateParams.finds) {
@@ -74,14 +74,14 @@
                 }
             }, 100);
         }
-		
-		function goCancel() {
+
+        function goCancel() {
             $rootScope.loading = true;
             $timeout(function () {
                 $state.go('main');
             }, 100);
         }
-		
+
         function errorHandler() {
             $rootScope.loading = false;
             $rootScope.myError = true;

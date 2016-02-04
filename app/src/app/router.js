@@ -77,7 +77,7 @@
                     wifi: ['$http', '$q', '$stateParams', '$rootScope',
                         function ($http, $q, $stateParams, $rootScope) {
                             var webUrl = 'http://ia.media-imdb.com/images/' +
-                                'M/MV5BMTIyOTM5MzkzMF5BMl5BanBnXkFtZTYwOTk5OTc5._V1_SX300.jpg';
+                                'M/MV5BOTk1OTA1MjIyNV5BMl5BanBnXkFtZTcwODQxMTkyMQ@@._V1_SX300.jpg';
                             return $http.get(webUrl)
                                 .then(function (data) {
                                     return true;
@@ -123,12 +123,12 @@
                     wifi: ['$http', '$q', '$stateParams', '$rootScope',
                         function ($http, $q, $stateParams, $rootScope) {
                             var webUrl = 'http://ia.media-imdb.com/images/' +
-                                'M/MV5BMTIyOTM5MzkzMF5BMl5BanBnXkFtZTYwOTk5OTc5._V1_SX300.jpg';
+                                'M/MV5BOTk1OTA1MjIyNV5BMl5BanBnXkFtZTcwODQxMTkyMQ@@._V1_SX300.jpg';
                             return $http.get(webUrl)
-                                .then(function (data) {
+                                .then(function () {
                                     return true;
                                 })
-                                .catch(function (reject) {
+                                .catch(function () {
                                     $rootScope.loading = false;
                                     $rootScope.myError = true;
                                     return false;

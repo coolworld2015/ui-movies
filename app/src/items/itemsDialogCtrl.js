@@ -5,9 +5,9 @@
         .module('app')
         .controller('ItemsDialogCtrl', ItemsDialogCtrl);
 
-    ItemsDialogCtrl.$inject = ['$state', '$rootScope', '$timeout', 'ItemsService', 'ItemsLocalStorage', '$stateParams'];
+    ItemsDialogCtrl.$inject = ['$state', '$rootScope', '$timeout', 'ItemsLocalStorage', '$stateParams'];
 
-    function ItemsDialogCtrl($state, $rootScope, $timeout, ItemsService, ItemsLocalStorage, $stateParams) {
+    function ItemsDialogCtrl($state, $rootScope, $timeout, ItemsLocalStorage, $stateParams) {
         var vm = this;
 
         angular.extend(vm, {
@@ -27,28 +27,28 @@
             $rootScope.loading = true;
             $rootScope.myError = false;
 
-			ItemsLocalStorage.deleteItem(vm.id);
-			$rootScope.loading = true;
-			$timeout(function () {
-				if (vm.type == 'movie') {
-					$state.go('items');
-				} else {
-					$state.go('series');
-				}
-			}, 100);
+            ItemsLocalStorage.deleteItem(vm.id);
+            $rootScope.loading = true;
+            $timeout(function () {
+                if (vm.type == 'movie') {
+                    $state.go('items');
+                } else {
+                    $state.go('series');
+                }
+            }, 100);
         }
-		
+
         function itemsEditBack() {
             $rootScope.loading = true;
             $timeout(function () {
-				if (vm.type == 'movie') {
-					$state.go('items');
-				} else {
-					$state.go('series');
-				}
+                if (vm.type == 'movie') {
+                    $state.go('items');
+                } else {
+                    $state.go('series');
+                }
             }, 100);
         }
-		
+
         function errorHandler() {
             $rootScope.loading = false;
             $rootScope.myError = true;

@@ -1,6 +1,7 @@
 body {
     background-color: black;
 }
+
 .header {
     width: 100%;
     display: inline-block;
@@ -12,15 +13,27 @@ body {
     text-align: center;
  	text-shadow: black 0.15em 0.15em 0.15em;	
 }
+
+.items {
+    color: white;
+    background-color: black;
+    font-size: 24px;
+    font-weight: bold;
+    border: black;
+    cursor: pointer;
+}
+
 .button {
     font-weight:bold;
     font-size:17px;
     width:46%;
 }
+
 .input {
     font-weight:bold;
     font-size:17px;
 }
+
 .valid {
     color: red;
     font-weight: bold;
@@ -29,6 +42,7 @@ body {
     top: 5px;
     left: 3px;
 }
+
 .loading {
     position:fixed;
     top:20px;
@@ -41,6 +55,7 @@ body {
 	text-align: right;
     background-color: transparent;
 }
+
 .error {
     position:fixed;
     top:20px;
@@ -52,6 +67,7 @@ body {
     color: red;
     background-color: transparent;
 }
+
 .logo {
     width: 150px;
     height: 150px;

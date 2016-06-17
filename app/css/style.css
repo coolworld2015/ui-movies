@@ -10,6 +10,7 @@ body {
     color: white;
     font-weight: bold;
     text-align: center;
+	text-shadow: black 0.15em 0.15em 0.15em;	
 }
 .button {
     font-weight:bold;
@@ -50,4 +51,9 @@ body {
     opacity:.9;
     color: red;
     background-color: transparent;
+}
+.logo {
+    width: 150px;
+    height: 150px;
+	border-radius: 20%;	
 }
